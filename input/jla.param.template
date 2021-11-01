@@ -27,8 +27,8 @@ data.parameters['Delta_M'] = [-0.10,  None, None, 0.004,  1, 'nuisance']
 # Derived parameter list
 data.parameters['Omega_m'] = [0,    -1, -1, 0,1,  'derived']
 
-
 data.cosmo_arguments['Omega_b'] = 0.05
+
 #------ Mcmc parameters ----
 # Number of steps taken, by default (overwritten by the -N command)
 data.N=10

@@ -1,0 +1,56 @@
+#------Experiments to test (separated with commas)-----
+
+# valid options are (so far): acbar, bicep, boomerang, cbi,
+# hst, quad, sn, spt, fake_planck_bluebook,
+# euclid_pk, euclid_lensing
+# and clik_fake_planck (for Planck members)
+
+#data.experiments=['JLA']
+data.experiments=['JLA','sdss_lrgDR7']
+
+# Settings for over-sampling
+data.over_sampling=[1,4] 
+
+#------ Parameter list -------
+# data.parameters[class name] = [mean, min, max, 1-sigma, scale, role]
+# - if min max irrelevant, put to -1 or None (if you want a boundary of -1, use -1.0)
+# - if fixed, put 1-sigma to 0
+# - if scale irrelevant, put to 1, otherwise to the appropriate factor
+# - role is either 'cosmo', 'nuisance' or 'derived'
+
+
+# Cosmological parameters list
+data.parameters['Omega_cdm'] = [0.2562,  None, None, 0.008,  1, 'cosmo']
+data.parameters['w0_sde']    = [1., 0.01, 1.0,  0.02,    1, 'cosmo']
+data.parameters['alpha_sde'] = [ -5.0, -7.0, -3.0, 0.2, 1, 'cosmo']
+data.parameters['beta_sde'] = [ 1.2, 0.0, 1.4, 0.2, 1, 'cosmo']
+data.parameters['H0'] = [67.4, 67.1, 67.9, 0.1, 1,  'cosmo']
+
+# Nuisance
+data.parameters['alpha']   = [0.15 ,  None, None, 0.001, 1, 'nuisance']
+data.parameters['beta']    = [3.559,  None, None, 0.02,  1, 'nuisance']
+data.parameters['M']       = [-19.02, None, None, 0.004,  1, 'nuisance']
+data.parameters['Delta_M'] = [-0.10,  None, None, 0.004,  1, 'nuisance']
+
+# Derived parameter list
+data.parameters['Omega_m'] = [0,    -1, -1, 0,1,  'derived']
+data.parameters['z_reio']       = [0, -1, -1, 0,1,  'derived']
+data.parameters['sigma8']       = [0, -1, -1, 0,1,  'derived']
+
+# Fixed Arguments
+data.cosmo_arguments['fluid_equation_of_state']  = 'SDE'
+data.cosmo_arguments['Omega_b'] = 0.05
+data.cosmo_arguments['Omega_Lambda'] = 0
+
+
+# These two are required to compute P(k) and to get sigma8 as a derived parameter
+# (class must compute the P(k) until sufficient k)
+data.cosmo_arguments['output'] = 'mPk'
+data.cosmo_arguments['P_k_max_h/Mpc'] = 1.
+
+#------ Mcmc parameters ----
+# Number of steps taken, by default (overwritten by the -N command)
+data.N=10
+# Number of accepted steps before writing to file the chain. Larger means less
+# access to disc, but this is not so much time consuming.
+data.write_step=5
