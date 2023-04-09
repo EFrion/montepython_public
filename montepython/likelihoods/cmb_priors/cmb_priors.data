@@ -1,0 +1,8 @@
+cmb_priors.data_directory      = data.path['data']
+
+cmb_priors.Rshift      = 1.7493
+cmb_priors.l_a      = 301.462
+cmb_priors.omega_b  = 0.02239
+cmb_priors.n_s  = 0.9653
+
+cmb_priors.cov_file            = 'cmb_priors_cov.txt'

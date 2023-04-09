@@ -1,0 +1,58 @@
+#------Experiments to test (separated with commas)-----
+
+# valid options are (so far): acbar, bicep, boomerang, cbi,
+# hst, quad, sn, spt, fake_planck_bluebook,
+# euclid_pk, euclid_lensing
+# and clik_fake_planck (for Planck members)
+
+data.experiments=['Pantheon','cmb_priors_udm','absolute_M']
+#data.experiments=['JLA','sdss_lrgDR7']
+
+# Settings for over-sampling
+data.over_sampling=[1,2] 
+
+#------ Parameter list -------
+# data.parameters[class name] = [mean, min, max, 1-sigma, scale, role]
+# - if min max irrelevant, put to -1 or None (if you want a boundary of -1, use -1.0)
+# - if fixed, put 1-sigma to 0
+# - if scale irrelevant, put to 1, otherwise to the appropriate factor
+# - role is either 'cosmo', 'nuisance' or 'derived'
+
+
+# Cosmological parameters list
+data.parameters['beta_udm']  = [0.5, 0.001, 10.0,  0.1,    1, 'cosmo']
+data.parameters['a_t']       = [0.26, 0.0, 1.0, 0.1, 1, 'cosmo']
+data.parameters['omega_b']   = [2.249, -1, -1, 0.016,  0.01, 'cosmo']
+data.parameters['omega_cdm'] = [0.1120, -1, -1, 0.0016,  1, 'cosmo']
+data.parameters['h'] = [0.703, -1, -1, 0.0065,  1, 'cosmo']
+data.parameters['n_s'] = [0.9659, -1,-1,0.0042,1,'cosmo']
+
+# Nuisance
+data.parameters['M'] = [-19.37, None, None, 0.004,  1, 'nuisance']
+
+# Derived parameter list
+data.parameters['H0'] = [0,-1,-1,0,1,'derived']
+data.parameters['Omega0_fld'] = [0,-1,-1,0,1,'derived']
+data.parameters['Omega_m'] = [0,-1,-1,0,1,'derived']
+data.parameters['z_star']       = [0, -1, -1, 0,1,  'derived']
+#data.parameters['sigma8']       = [0, -1, -1, 0,1,  'derived']
+
+data.parameters['Omega_DE'] = [0,-1,-1,0,1,'derived_lkl']
+
+# Fixed Arguments
+data.cosmo_arguments['fluid_equation_of_state']  = 'UDM'
+#data.cosmo_arguments['Omega_b'] = 0.048
+data.cosmo_arguments['Omega_Lambda'] = 0.0
+data.cosmo_arguments['N_ur']=3.044
+
+# These two are required to compute P(k) and to get sigma8 as a derived parameter
+# (class must compute the P(k) until sufficient k)
+#data.cosmo_arguments['output'] = 'mPk'
+#data.cosmo_arguments['P_k_max_h/Mpc'] = 1.
+
+#------ Mcmc parameters ----
+# Number of steps taken, by default (overwritten by the -N command)
+data.N=10
+# Number of accepted steps before writing to file the chain. Larger means less
+# access to disc, but this is not so much time consuming.
+data.write_step=5
